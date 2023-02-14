@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GameCharactersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Characters">
+    <Key>
+      <PropertyRef Name="id_characters" />
+    </Key>
+    <Property Name="id_characters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FK_Weapon" Type="Int32" />
+    <Property Name="FK_Power" Type="Int32" />
+    <Property Name="FK_Lvl" Type="Int32" />
+    <Property Name="FK_Status" Type="Int32" />
+    <Property Name="FK_Type" Type="Int32" />
+    <NavigationProperty Name="LevelNPC" Relationship="Self.FK_Characters_LevelNPC" FromRole="Characters" ToRole="LevelNPC" />
+    <NavigationProperty Name="PowerCharacters" Relationship="Self.FK_Characters_PowerCharacters" FromRole="Characters" ToRole="PowerCharacters" />
+    <NavigationProperty Name="StatusCharacters" Relationship="Self.FK_Characters_StatusCharacters" FromRole="Characters" ToRole="StatusCharacters" />
+    <NavigationProperty Name="TypeCharacters" Relationship="Self.FK_Characters_TypeCharacters" FromRole="Characters" ToRole="TypeCharacters" />
+    <NavigationProperty Name="Weapon" Relationship="Self.FK_Characters_Weapon" FromRole="Characters" ToRole="Weapon" />
+  </EntityType>
+  <EntityType Name="LevelNPC">
+    <Key>
+      <PropertyRef Name="id_level_NPC" />
+    </Key>
+    <Property Name="id_level_NPC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_Characters_LevelNPC" FromRole="LevelNPC" ToRole="Characters" />
+  </EntityType>
+  <EntityType Name="PowerCharacters">
+    <Key>
+      <PropertyRef Name="id_power_characters" />
+    </Key>
+    <Property Name="id_power_characters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_Characters_PowerCharacters" FromRole="PowerCharacters" ToRole="Characters" />
+  </EntityType>
+  <EntityType Name="StatusCharacters">
+    <Key>
+      <PropertyRef Name="id_status_characters" />
+    </Key>
+    <Property Name="id_status_characters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_Characters_StatusCharacters" FromRole="StatusCharacters" ToRole="Characters" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypeCharacters">
+    <Key>
+      <PropertyRef Name="id_type_characters" />
+    </Key>
+    <Property Name="id_type_characters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_Characters_TypeCharacters" FromRole="TypeCharacters" ToRole="Characters" />
+  </EntityType>
+  <EntityType Name="TypeWeapon">
+    <Key>
+      <PropertyRef Name="id_type_weapon" />
+    </Key>
+    <Property Name="id_type_weapon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Weapon" Relationship="Self.FK_Weapon_TypeWeapon" FromRole="TypeWeapon" ToRole="Weapon" />
+  </EntityType>
+  <EntityType Name="Weapon">
+    <Key>
+      <PropertyRef Name="id_weapon" />
+    </Key>
+    <Property Name="id_weapon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Power" Type="Int32" />
+    <Property Name="PassiveSkill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FK_Type" Type="Int32" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_Characters_Weapon" FromRole="Weapon" ToRole="Characters" />
+    <NavigationProperty Name="TypeWeapon" Relationship="Self.FK_Weapon_TypeWeapon" FromRole="Weapon" ToRole="TypeWeapon" />
+  </EntityType>
+  <Association Name="FK_Characters_LevelNPC">
+    <End Role="LevelNPC" Type="Self.LevelNPC" Multiplicity="0..1" />
+    <End Role="Characters" Type="Self.Characters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LevelNPC">
+        <PropertyRef Name="id_level_NPC" />
+      </Principal>
+      <Dependent Role="Characters">
+        <PropertyRef Name="FK_Lvl" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Characters_PowerCharacters">
+    <End Role="PowerCharacters" Type="Self.PowerCharacters" Multiplicity="0..1" />
+    <End Role="Characters" Type="Self.Characters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PowerCharacters">
+        <PropertyRef Name="id_power_characters" />
+      </Principal>
+      <Dependent Role="Characters">
+        <PropertyRef Name="FK_Power" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Characters_StatusCharacters">
+    <End Role="StatusCharacters" Type="Self.StatusCharacters" Multiplicity="0..1" />
+    <End Role="Characters" Type="Self.Characters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusCharacters">
+        <PropertyRef Name="id_status_characters" />
+      </Principal>
+      <Dependent Role="Characters">
+        <PropertyRef Name="FK_Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Characters_TypeCharacters">
+    <End Role="TypeCharacters" Type="Self.TypeCharacters" Multiplicity="0..1" />
+    <End Role="Characters" Type="Self.Characters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeCharacters">
+        <PropertyRef Name="id_type_characters" />
+      </Principal>
+      <Dependent Role="Characters">
+        <PropertyRef Name="FK_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Characters_Weapon">
+    <End Role="Weapon" Type="Self.Weapon" Multiplicity="0..1" />
+    <End Role="Characters" Type="Self.Characters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Weapon">
+        <PropertyRef Name="id_weapon" />
+      </Principal>
+      <Dependent Role="Characters">
+        <PropertyRef Name="FK_Weapon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Weapon_TypeWeapon">
+    <End Role="TypeWeapon" Type="Self.TypeWeapon" Multiplicity="0..1" />
+    <End Role="Weapon" Type="Self.Weapon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeWeapon">
+        <PropertyRef Name="id_type_weapon" />
+      </Principal>
+      <Dependent Role="Weapon">
+        <PropertyRef Name="FK_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GameCharactersEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Characters" EntityType="Self.Characters" />
+    <EntitySet Name="LevelNPC" EntityType="Self.LevelNPC" />
+    <EntitySet Name="PowerCharacters" EntityType="Self.PowerCharacters" />
+    <EntitySet Name="StatusCharacters" EntityType="Self.StatusCharacters" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TypeCharacters" EntityType="Self.TypeCharacters" />
+    <EntitySet Name="TypeWeapon" EntityType="Self.TypeWeapon" />
+    <EntitySet Name="Weapon" EntityType="Self.Weapon" />
+    <AssociationSet Name="FK_Characters_LevelNPC" Association="Self.FK_Characters_LevelNPC">
+      <End Role="LevelNPC" EntitySet="LevelNPC" />
+      <End Role="Characters" EntitySet="Characters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Characters_PowerCharacters" Association="Self.FK_Characters_PowerCharacters">
+      <End Role="PowerCharacters" EntitySet="PowerCharacters" />
+      <End Role="Characters" EntitySet="Characters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Characters_StatusCharacters" Association="Self.FK_Characters_StatusCharacters">
+      <End Role="StatusCharacters" EntitySet="StatusCharacters" />
+      <End Role="Characters" EntitySet="Characters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Characters_TypeCharacters" Association="Self.FK_Characters_TypeCharacters">
+      <End Role="TypeCharacters" EntitySet="TypeCharacters" />
+      <End Role="Characters" EntitySet="Characters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Characters_Weapon" Association="Self.FK_Characters_Weapon">
+      <End Role="Weapon" EntitySet="Weapon" />
+      <End Role="Characters" EntitySet="Characters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Weapon_TypeWeapon" Association="Self.FK_Weapon_TypeWeapon">
+      <End Role="TypeWeapon" EntitySet="TypeWeapon" />
+      <End Role="Weapon" EntitySet="Weapon" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
