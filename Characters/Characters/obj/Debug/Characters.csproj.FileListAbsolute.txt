@@ -1,8 +1,0 @@
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\Characters.csproj.AssemblyReference.cache
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\Characters.csproj.SuggestedBindingRedirects.cache
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\MainWindow.g.cs
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\Pages\PageCharacter.g.cs
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\App.g.cs
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\Characters_Content.g.cs
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\Characters_MarkupCompile.cache
-C:\Users\user\Desktop\Characters\Characters\obj\Debug\Characters_MarkupCompile.lref
